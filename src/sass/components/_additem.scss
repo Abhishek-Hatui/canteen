@@ -35,12 +35,12 @@
     &--3 {
       flex: 0 0 40%;
 
-      input {
-        &::placeholder {
-          position: absolute;
-          top: 1.5rem;
-        }
-      }
+      // input {
+      //   &::placeholder {
+      //     position: absolute;
+      //     top: 1.5rem;
+      //   }
+      // }
     }
 
     &--4 {
@@ -56,64 +56,6 @@
     text-transform: capitalize;
   }
 
-  &__input {
-    // border: 1px solid rgba(0,0,0, .3);
-    border: none;
-    border-radius: 2px;
-    background-color: var(--grey-color-1);
-    flex: 1;
-    padding: 1rem 2rem;
-    box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.15);
-    scale: 0.9;
-    position: relative;
-
-    transition: all 0.2s;
-
-    &::placeholder {
-      text-transform: capitalize;
-    }
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2);
-      scale: 1;
-      translate: 0 0.5rem;
-
-      &::placeholder {
-        opacity: 0;
-        visibility: hidden;
-      }
-    }
-
-    &--error {
-      background-color: orangered;
-      border: none;
-      border-radius: 2px;
-      flex: 1;
-      padding: 1rem 2rem;
-      box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.15);
-      scale: 0.9;
-      position: relative;
-
-      transition: all 0.2s;
-
-      &::placeholder {
-        text-transform: capitalize;
-      }
-
-      &:focus {
-        outline: none;
-        box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2);
-        scale: 1;
-        translate: 0 0.5rem;
-
-        &::placeholder {
-          opacity: 0;
-          visibility: hidden;
-        }
-      }
-    }
-  }
 
   &__category {
     display: flex;
@@ -146,7 +88,7 @@
     }
 
     &-input:checked + &-label {
-      border-bottom: 1.5px solid var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
       box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2);
 
       scale: 1;

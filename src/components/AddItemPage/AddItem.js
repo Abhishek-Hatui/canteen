@@ -54,7 +54,7 @@ const AddItem = () => {
       body: JSON.stringify(newItem)
     });
     const response = await data.json();
-    console.log(response);
+    return response;
   }
   
 
@@ -74,8 +74,8 @@ const AddItem = () => {
       "image": "https://images.unsplash.com/photo-1703585221312-abd549944619?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=900&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTcwNDgwOTI1NA&ixlib=rb-4.0.3&q=80&w=360"
     }
 
-    sendData(newItem);
-    
+    const response = sendData(newItem);
+    console.log(response);
     nameReset();
     priceReset();
     descReset();
@@ -99,7 +99,7 @@ const AddItem = () => {
             Item name
           </label>
           <input
-            className={nameHasError? "add-item__input--error" : "add-item__input"}
+            className={nameHasError? "input--error" : "input"}
             type="text"
             placeholder="enter item name"
             id="name"
@@ -117,7 +117,7 @@ const AddItem = () => {
             price
           </label>
           <input
-            className={priceHasError? "add-item__input--error" : "add-item__input"}
+            className={priceHasError? "input--error" : "input"}
             type="text"
             placeholder="enter item price"
             id="price"
@@ -135,7 +135,7 @@ const AddItem = () => {
             description
           </label>
           <input
-            className={descHasError? "add-item__input--error" : "add-item__input"}
+            className={descHasError? "input--error" : "input"}
             type="text"
             placeholder="enter item description"
             id="description"
@@ -232,7 +232,7 @@ const AddItem = () => {
         </div>
 
         <button
-          className="button button--big button--primary"
+          className="button button--big button--primary u-margin-bottom-big"
         >
           confirm
         </button>
