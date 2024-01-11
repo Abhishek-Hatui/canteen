@@ -96,7 +96,7 @@ body {
   .input:focus {
     outline: none;
     box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2);
-    scale: 1;
+    scale: 0.95;
     translate: 0 0.5rem; }
     .input:focus::placeholder {
       opacity: 0;
@@ -116,7 +116,7 @@ body {
     .input--error:focus {
       outline: none;
       box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2);
-      scale: 1;
+      scale: 0.95;
       translate: 0 0.5rem; }
       .input--error:focus::placeholder {
         opacity: 0;
@@ -193,6 +193,8 @@ body {
     align-items: center;
     margin: 10.7rem 2.4rem 2.4rem 2.4rem;
     width: 80%; }
+    .login__title-group--reg {
+      margin-top: 7.7rem; }
   .login__title {
     text-transform: capitalize;
     text-align: center; }

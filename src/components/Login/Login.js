@@ -56,7 +56,7 @@ const Login = () => {
         <LogoPic className="login__pic" />
         <h1 className="heading-primary login__title">login to canteen</h1>
         <p className="login__sub-title">
-          Don't have an existing account?
+          Don't have an existing account?&nbsp;
           <span>
             <a href="/">Create</a>
           </span>
@@ -82,7 +82,7 @@ const Login = () => {
             onChange={passwordChangeHandler}
             onBlur={passwordBlurHandler}
           />
-          <button className="button button--primary u-margin-right u-margin-left u-margin-bottom-small">
+          <button className="button button--primary u-margin-right u-margin-left u-margin-bottom">
             login
           </button>
           <button className="button button--white u-margin-right u-margin-left">
