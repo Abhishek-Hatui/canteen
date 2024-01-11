@@ -6,10 +6,10 @@ import Register from "./components/Registration/Registration";
 function App() {
   return (
     <div className="App">
-      {/* <Navigation />
-      <AddItem/>
-      <Login /> */}
-      <Register />
+      {/* <Navigation /> */}
+      {/* <AddItem/> */}
+      {/* <Login /> */}
+      {/* <Register /> */}
     </div>
   );
 }
