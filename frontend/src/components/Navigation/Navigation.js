@@ -14,6 +14,7 @@ const Navigation = () => {
   }
 
   return(
+    <section>
     <nav className="navigation">
     <ul className="navigation__list">
       <li className={`navigation__item ${btnActive === 'home' ? 'navigation__item--active' : ''}`}>
@@ -38,6 +39,7 @@ const Navigation = () => {
       </li>
     </ul>
   </nav>
+  </section>
   )
 };
 

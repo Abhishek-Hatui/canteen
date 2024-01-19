@@ -1,12 +1,8 @@
+import { Link } from 'react-router-dom';
 import { ReactComponent as LogoPic } from '../../assests/SVG/loginpic.svg';
 import useInput from '../../hooks/useInput/use-input';
-import { useRef } from 'react';
 
-const DUMMY_CLG_NAME = ['VCET', 'TCET', 'TPOLY', 'VJTI'];
-
-const Register = () => {
-  const selectRef = useRef();
-
+const OwnerRegister = () => {
   const {
     value: enteredName,
     hasError: nameHasError,
@@ -37,17 +33,18 @@ const Register = () => {
   } = useInput((value) => value.trim() !== '' && value.trim().length > 6);
 
   const {
-    value: clgName,
+    value: enteredClgName,
     hasError: clgNameHasError,
     isValueValid: isClgNameValid,
     valueChangeHandler: clgNameChangeHandler,
     blurHandler: clgNameBlurHandler,
+    reset: clgReset,
   } = useInput((value) => value.trim() !== '');
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const RegisterReq = async (info) => {
-    try{
+    try {
       const response = await fetch('/api/v1/oregister', {
         method: 'POST',
         headers: {
@@ -55,13 +52,13 @@ const Register = () => {
         },
         body: JSON.stringify(info),
       });
-      if(!response.ok){
-        throw new Error('register failed');
+      if (!response.ok) {
+        throw new Error('something went wrong');
       }
-      // const result = await response.json();
-      // console.log(result.token);
-    }catch (error){
-      console.log(error.message);
+      //   const result = await response.json();
+      alert('registration successfull');
+    } catch (error) {
+      alert(error.message);
     }
   };
 
@@ -71,19 +68,19 @@ const Register = () => {
       return;
     }
     if (!isClgNameValid) {
-      selectRef.current.focus();
       return;
     }
     const userInfo = {
       name: enteredName,
       email: enteredEmail,
       password: enteredPassword,
-      ownerCollegeName: clgName
+      ownerCollegeName: enteredClgName,
     };
     RegisterReq(userInfo);
     nameReset();
     emailReset();
     passwordReset();
+    clgReset();
   };
 
   return (
@@ -92,15 +89,16 @@ const Register = () => {
         <LogoPic className="login__pic" />
         <h1 className="heading-primary login__title">Register to canteen</h1>
         <p className="login__sub-title">
-          Don't have an existing account?&nbsp;
+          Already have an account?&nbsp;
           <span>
-            <a href="/">Create</a>
+            <Link to="/ologin">Login</Link>
           </span>
         </p>
       </div>
       <form onSubmit={onSubmitHandler} className="login__form">
         <div className="login__form-group">
           <input
+            name="username"
             className={
               nameHasError
                 ? 'input--error u-margin-bottom-small'
@@ -114,6 +112,7 @@ const Register = () => {
             onBlur={nameBlurHandler}
           />
           <input
+            name="email"
             className={
               emailHasError
                 ? 'input--error u-margin-bottom-small'
@@ -127,6 +126,7 @@ const Register = () => {
             onBlur={emailBlurHandler}
           />
           <input
+            name="password"
             className={
               passwordHasError
                 ? 'input--error u-margin-bottom-small'
@@ -139,28 +139,21 @@ const Register = () => {
             onChange={passwordChangeHandler}
             onBlur={passwordBlurHandler}
           />
-          <select
+          <input
+            name="college"
             className={
               clgNameHasError
                 ? 'input--error u-margin-bottom'
                 : 'input u-margin-bottom'
             }
-            name="clg-name"
+            type="text"
+            placeholder="college"
+            required
+            value={enteredClgName}
             onChange={clgNameChangeHandler}
             onBlur={clgNameBlurHandler}
-            defaultValue={''}
-            ref={selectRef}
-          >
-            <option disabled value="">
-              {' '}
-              -- select an option --{' '}
-            </option>
-            {DUMMY_CLG_NAME.map((clg) => (
-              <option value={clg} key={clg}>
-                {clg}
-              </option>
-            ))}
-          </select>
+          />
+
           <button className="button button--primary u-margin-right u-margin-left u-margin-bottom">
             register
           </button>
@@ -173,4 +166,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default OwnerRegister;

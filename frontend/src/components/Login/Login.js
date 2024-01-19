@@ -1,5 +1,6 @@
 import { ReactComponent as LogoPic } from '../../assests/SVG/loginpic.svg';
 import useInput from '../../hooks/useInput/use-input';
+import { Link } from 'react-router-dom';
 const Login = () => {
   const {
     value: enteredEmail,
@@ -8,7 +9,9 @@ const Login = () => {
     reset: emailReset,
     valueChangeHandler: emailChangeHandler,
     blurHandler: emailBlurHandler,
-  } = useInput((value) => value.trim() !== '' && value.includes('@') && value.includes('.'));
+  } = useInput(
+    (value) => value.trim() !== '' && value.includes('@') && value.includes('.')
+  );
 
   const {
     value: enteredPassword,
@@ -17,35 +20,41 @@ const Login = () => {
     reset: passwordReset,
     valueChangeHandler: passwordChangeHandler,
     blurHandler: passwordBlurHandler,
-  } = useInput((value) => value.trim() !== '' && value.trim().length > 8);
+  } = useInput((value) => value.trim() !== '' && value.trim().length > 6);
 
   const loginReq = async (info) => {
-    const response = await fetch("http://localhost:4001/api/v1/ologin",{
-        method: "POST",
-        headers:{
-            "Content-Type": "application/json"
+    try {
+      const response = await fetch('/api/v1/ologin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(info)
-    })
+        body: JSON.stringify(info),
+      });
 
-    const result = await response.json();
+      if (!response.ok) {
+        throw new Error('Could not login in');
+      }
+      const result = await response.json();
+      return result;
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
-    return result;
-  }
-
-  const onSubmitHandler = (event) => {
+  const onSubmitHandler = async (event) => {
     event.preventDefault();
     if (!isEmailValid && !isPasswordValid) {
       return;
     }
 
     const userInfo = {
-        "email": enteredEmail,
-        "password": enteredPassword
-    }
+      email: enteredEmail,
+      password: enteredPassword,
+    };
 
-    const response = loginReq(userInfo);
-    console.log(response);
+    const result = await loginReq(userInfo);
+    console.log(result.token);
     emailReset();
     passwordReset();
   };
@@ -58,14 +67,19 @@ const Login = () => {
         <p className="login__sub-title">
           Don't have an existing account?&nbsp;
           <span>
-            <a href="/">Create</a>
+            <Link to="/oregister">Create</Link>
           </span>
         </p>
       </div>
       <form onSubmit={onSubmitHandler} className="login__form">
         <div className="login__form-group">
           <input
-            className={emailHasError ?"input--error u-margin-bottom-small" :"input u-margin-bottom-small"}
+            name="email"
+            className={
+              emailHasError
+                ? 'input--error u-margin-bottom-small'
+                : 'input u-margin-bottom-small'
+            }
             type="email"
             placeholder="email"
             required
@@ -74,7 +88,12 @@ const Login = () => {
             onBlur={emailBlurHandler}
           />
           <input
-            className={passwordHasError ?"input--error u-margin-bottom" :"input u-margin-bottom"}
+            name="password"
+            className={
+              passwordHasError
+                ? 'input--error u-margin-bottom'
+                : 'input u-margin-bottom'
+            }
             type="password"
             placeholder="password"
             required

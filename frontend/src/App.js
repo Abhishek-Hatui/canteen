@@ -1,16 +1,14 @@
-import Navigation from "./components/Navigation/Navigation";
-import Login from "./components/Login/Login";
-import AddItem from "./components/AddItemPage/AddItem";
-import Register from "./components/Registration/Registration";
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import LoginPage from './pages/login';
+import OwnerDashboard from './components/OwnerDashboard/OwnerDashboard';
+
+
 
 function App() {
   return (
-    <div className="App">
-      {/* <Navigation /> */}
-      {/* <AddItem/> */}
-      {/* <Login /> */}
-      {/* <Register /> */}
-    </div>
+    <>
+      <OwnerDashboard />
+    </>
   );
 }
 

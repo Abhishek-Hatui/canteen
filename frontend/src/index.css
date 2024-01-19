@@ -10,6 +10,7 @@
   --white-color: #fff;
   --grey-color: #eee;
   --grey-color-1: #F9FAFB;
+  --grey-color-2: #F4F7FE;
   --primary-color: #E74C3C; }
 
 html {
@@ -38,6 +39,12 @@ body {
 .heading-secondary {
   font-size: 2rem;
   font-weight: 400;
+  line-height: 1;
+  padding: 1px; }
+
+.heading-tertiary {
+  font-size: 1.5rem;
+  font-weight: 200;
   line-height: 1;
   padding: 1px; }
 
@@ -207,6 +214,56 @@ body {
       display: flex;
       flex-direction: column; }
 
+.owner-dashboard__title {
+  text-transform: capitalize;
+  margin-left: 2rem;
+  margin-top: 2rem; }
+
+.owner-dashboard__order {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 1rem; }
+
+.owner-dashboard__order-logo {
+  background-color: var(--grey-color-2);
+  border-radius: 100px;
+  padding: .5rem;
+  margin-right: 1rem; }
+
+.owner-dashboard__order-title {
+  font-size: 2rem;
+  text-transform: capitalize; }
+
+.owner-dashboard__order-status {
+  text-transform: uppercase; }
+
+.card-holder {
+  display: flex;
+  margin: 2rem 0rem 2rem 2rem;
+  overflow-x: scroll;
+  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2); }
+  .card-holder::-webkit-scrollbar {
+    display: none; }
+
+.dash-card {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 20rem;
+  margin-right: 1.5rem;
+  padding: 1rem;
+  border-radius: 3px;
+  box-shadow: 1rem 0 1rem rgba(0, 0, 0, 0.2);
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  text-transform: capitalize; }
+  .dash-card__content {
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 2; }
+  .dash-card__badge {
+    align-self: flex-end; }
+
 .navigation {
   position: fixed;
   bottom: 0;
@@ -220,7 +277,7 @@ body {
     align-items: center;
     background-color: var(--white-color);
     box-shadow: 0 -1rem 4rem rgba(var(--black-color), 0.2);
-    border-radius: 0.5rem 0.5rem 0 0;
+    border-radius: 2rem 2rem 0 0;
     list-style: none; }
   .navigation__item {
     flex: 0 0;
