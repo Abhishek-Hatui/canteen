@@ -1,30 +1,8 @@
-.owner-dashboard{
-  &__title{
+.owner-dashboard {
+  &__title {
     text-transform: capitalize;
     margin-left: 2rem;
     margin-top: 2rem;
-  }
-
-  &__order{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-
-  &__order-logo{
-    background-color: var(--grey-color-2);
-    border-radius: 100px;
-    padding: .5rem;
-    margin-right: 1rem;
-  }
-  &__order-title{
-    font-size: 2rem;
-    text-transform: capitalize;
-  }
-
-  &__order-status{
-    text-transform: uppercase;
   }
 }
 
@@ -34,14 +12,14 @@
   overflow-x: scroll;
   box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2);
 
-  &::-webkit-scrollbar{
+  &::-webkit-scrollbar {
     display: none;
   }
 }
 
 .dash-card {
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   flex: 1 0 20rem;
   margin-right: 1.5rem;
   padding: 1rem;
@@ -50,7 +28,6 @@
   background-color: var(--primary-color);
   color: var(--white-color);
   text-transform: capitalize;
-  
 
   &__content {
     font-size: 2rem;
@@ -60,5 +37,42 @@
 
   &__badge {
     align-self: flex-end;
+  }
+}
+
+.order{
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  padding: 1rem;
+  background-color: var(--primary-color);
+  border-radius: 3px;
+  
+  &:last-child{
+    margin-bottom: 5rem;
+  }
+
+  &__details{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  &__logo{
+    background-color: var(--grey-color);
+    border-radius: 100px;
+    padding:  .7rem .6rem .5rem .6rem;
+  }
+
+  &__text{
+    font-size: 1.5rem;
+    color: var(--white-color);
+
+    &--title{
+      text-transform: capitalize;
+      font-size: 2rem;
+    }
+
   }
 }

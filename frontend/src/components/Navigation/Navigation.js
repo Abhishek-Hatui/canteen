@@ -1,45 +1,43 @@
+import {Outlet,NavLink} from 'react-router-dom';
 import { ReactComponent as Home } from '../../assests/SVG/House.svg';
 import { ReactComponent as Menu } from '../../assests/SVG/Fork.svg';
 import { ReactComponent as Cart } from '../../assests/SVG/Cart.svg';
 import { ReactComponent as User } from '../../assests/SVG/account.svg';
 
-import { useState } from 'react';
-
 const Navigation = () => {
 
-  const [btnActive, setBtnActive] = useState(null);
-
-  const btnChangeHandler = (btnName) => {
-    setBtnActive(btnName);
-  }
-
   return(
-    <section>
+    <>
+    <main>
+      <Outlet/>
+    </main>
+    <footer>
     <nav className="navigation">
     <ul className="navigation__list">
-      <li className={`navigation__item ${btnActive === 'home' ? 'navigation__item--active' : ''}`}>
-        <button className="navigation__button" onClick={() => btnChangeHandler('home')}>
+      <li className={'navigation__item' }>
+        <NavLink to='/' className={({isActive}) => isActive ? 'navigation__button--active' : 'navigation__button'} end>
           <Home />
-        </button>
+        </NavLink>
       </li>
-      <li className={`navigation__item ${btnActive === 'menu' ? 'navigation__item--active' : ''}`}>
-        <button className="navigation__button" onClick={() => btnChangeHandler('menu')}>
+      <li className={'navigation__item' }>
+        <NavLink to='/odashboard' className={({isActive}) => isActive ? 'navigation__button--active' : 'navigation__button'}>
           <Menu />
-        </button>
+        </NavLink>
       </li>
-      <li className={`navigation__item ${btnActive === 'cart' ? 'navigation__item--active' : ''}`}>
-        <button className="navigation__button" onClick={() => btnChangeHandler('cart')}>
+      <li className={'navigation__item' }>
+        <NavLink to='/additem' className={({isActive}) => isActive ? 'navigation__button--active' : 'navigation__button'}>
           <Cart />
-        </button>
+        </NavLink>
       </li>
-      <li className={`navigation__item ${btnActive === 'user' ? 'navigation__item--active' : ''}`}>
-        <button className="navigation__button" onClick={() => btnChangeHandler('user')}>
+      <li className={'navigation__item' }>
+        <NavLink to='/ologin' className={({isActive}) => isActive ? 'navigation__button--active' : 'navigation__button'}>
           <User />
-        </button>
+        </NavLink>
       </li>
     </ul>
   </nav>
-  </section>
+  </footer>
+  </>
   )
 };
 

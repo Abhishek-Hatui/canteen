@@ -1,8 +1,9 @@
 import { ReactComponent as LeftArrow } from '../../assests/SVG/left-arrow.svg';
 import useInput from '../../hooks/useInput/use-input';
-
+import { useNavigate } from 'react-router-dom';
 
 const AddItem = () => {
+  const navigate = useNavigate();
   ///////////////////////////////////////////////////////////////////////////////////////
   const {
     value: enteredName,
@@ -13,7 +14,6 @@ const AddItem = () => {
     valueChangeHandler: nameChangeHandler,
   } = useInput((name) => name.trim() !== '');
 
-
   const {
     value: enteredPrice,
     hasError: priceHasError,
@@ -21,7 +21,9 @@ const AddItem = () => {
     isValueValid: isPriceValid,
     blurHandler: priceBlurHandler,
     valueChangeHandler: priceChangeHandler,
-  } = useInput((price) => price.trim() !== '' && price.match(/^[0-9]+$/) != null);
+  } = useInput(
+    (price) => price.trim() !== '' && price.match(/^[0-9]+$/) != null
+  );
 
   const {
     value: enteredDesc,
@@ -32,50 +34,57 @@ const AddItem = () => {
     valueChangeHandler: descChangeHandler,
   } = useInput((desc) => desc.trim() !== '');
 
-  const {
-    value: enteredCategory,
-    valueChangeHandler: categoryChangeHandler,
-  } = useInput((category) => category.trim() !== '');
+  const { value: enteredCategory, valueChangeHandler: categoryChangeHandler } =
+    useInput((category) => category.trim() !== '');
 
-  const {
-    value: enteredType,
-    valueChangeHandler: typeChangeHandler,
-  } = useInput((type) => type.trim() !== '');
-
+  const { value: enteredType, valueChangeHandler: typeChangeHandler } =
+    useInput((type) => type.trim() !== '');
 
   ///////////////////////////////////////////////////////////////////////////////////////
 
-  const sendData = async(newItem)=>{
-    const data = await fetch("http://localhost:4001/api/v1/item/new", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newItem)
-    });
-    const response = await data.json();
-    return response;
-  }
-  
+  const sendData = async (newItem) => {
+    try {
+      const response = await fetch('/api/v1/item/new', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newItem),
+      });
 
+      if (!response.ok) {
+        throw new Error('error adding new item!');
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      window.alert(err.message);
+      return null;
+    }
+  };
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    if(!isNameValid && !isPriceValid &!isDescValid){
+    if (!isNameValid && !isPriceValid & !isDescValid) {
       return;
     }
-    const newItem ={
-      "name":enteredName,
-      "description":enteredDesc,
-      "price":+enteredPrice,
-      "category":enteredCategory,
-      "type":enteredType,
-      "availability":true,
-      "image": "https://images.unsplash.com/photo-1703585221312-abd549944619?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=900&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTcwNDgwOTI1NA&ixlib=rb-4.0.3&q=80&w=360"
-    }
+    const newItem = {
+      name: enteredName,
+      description: enteredDesc,
+      price: +enteredPrice,
+      category: enteredCategory,
+      type: enteredType,
+      availability: true,
+      image: 'https://source.unsplash.com/1600x900/?' + enteredName,
+    };
 
     const response = sendData(newItem);
-    console.log(response);
+
+    if(response){
+      window.alert('item added successfully');
+    }
+
     nameReset();
     priceReset();
     descReset();
@@ -86,7 +95,9 @@ const AddItem = () => {
   return (
     <div className="add-item">
       <div className="add-item__title">
-        <LeftArrow />
+        <div onClick={() => navigate('..')}>
+          <LeftArrow />
+        </div>
         <h2 className="heading-secondary u-margin-left">add new item</h2>
       </div>
 
@@ -99,7 +110,7 @@ const AddItem = () => {
             Item name
           </label>
           <input
-            className={nameHasError? "input--error" : "input"}
+            className={nameHasError ? 'input--error' : 'input'}
             type="text"
             placeholder="enter item name"
             id="name"
@@ -117,7 +128,7 @@ const AddItem = () => {
             price
           </label>
           <input
-            className={priceHasError? "input--error" : "input"}
+            className={priceHasError ? 'input--error' : 'input'}
             type="text"
             placeholder="enter item price"
             id="price"
@@ -135,7 +146,7 @@ const AddItem = () => {
             description
           </label>
           <input
-            className={descHasError? "input--error" : "input"}
+            className={descHasError ? 'input--error' : 'input'}
             type="text"
             placeholder="enter item description"
             id="description"
@@ -231,9 +242,7 @@ const AddItem = () => {
           </div>
         </div>
 
-        <button
-          className="button button--big button--primary u-margin-bottom-big"
-        >
+        <button className="button button--big button--primary u-margin-bottom-big">
           confirm
         </button>
       </form>

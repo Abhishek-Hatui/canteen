@@ -71,6 +71,7 @@ body {
   padding: 1rem 2rem;
   border-radius: 5px;
   text-transform: uppercase;
+  text-decoration: none;
   text-align: center;
   transition: all .2s; }
   .button--white {
@@ -219,25 +220,6 @@ body {
   margin-left: 2rem;
   margin-top: 2rem; }
 
-.owner-dashboard__order {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-bottom: 1rem; }
-
-.owner-dashboard__order-logo {
-  background-color: var(--grey-color-2);
-  border-radius: 100px;
-  padding: .5rem;
-  margin-right: 1rem; }
-
-.owner-dashboard__order-title {
-  font-size: 2rem;
-  text-transform: capitalize; }
-
-.owner-dashboard__order-status {
-  text-transform: uppercase; }
-
 .card-holder {
   display: flex;
   margin: 2rem 0rem 2rem 2rem;
@@ -264,6 +246,31 @@ body {
   .dash-card__badge {
     align-self: flex-end; }
 
+.order {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  padding: 1rem;
+  background-color: var(--primary-color);
+  border-radius: 3px; }
+  .order:last-child {
+    margin-bottom: 5rem; }
+  .order__details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem; }
+  .order__logo {
+    background-color: var(--grey-color);
+    border-radius: 100px;
+    padding: .7rem .6rem .5rem .6rem; }
+  .order__text {
+    font-size: 1.5rem;
+    color: var(--white-color); }
+    .order__text--title {
+      text-transform: capitalize;
+      font-size: 2rem; }
+
 .navigation {
   position: fixed;
   bottom: 0;
@@ -282,17 +289,17 @@ body {
   .navigation__item {
     flex: 0 0;
     padding: 0.1rem;
-    margin: .5rem 0;
-    border-bottom: 2px solid transparent; }
-    .navigation__item--active {
-      border-bottom: 2px solid var(--primary-color); }
+    margin: .5rem 0; }
   .navigation__button {
     text-decoration: none;
     padding: 0.1rem 0.2rem;
     margin: 0.1rem;
     border: none;
     background-color: var(--white-color);
-    transition: all .2s; }
+    transition: all .2s;
+    border-bottom: 2px solid transparent; }
     .navigation__button:active {
       scale: 1.2;
       translate: 0 -.4rem; }
+    .navigation__button--active {
+      border-bottom: 2px solid var(--primary-color); }

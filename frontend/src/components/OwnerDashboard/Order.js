@@ -1,13 +1,24 @@
-import { ReactComponent as Fork } from '../../assests/SVG/Fork.svg';
+const ORDERSTATUS = {
+  cook: 'COOKING',
+  done: 'COMPLETED',
+};
 
 const Order = (props) => {
+  const {status, payment, total, id, handler} = props;
+  const isCooking = ORDERSTATUS.cook === props.status.toString().toUpperCase();
+  const isDone = ORDERSTATUS.done === props.status.toString().toUpperCase();
+
   return (
-    <div className="owner-dashboard__order">
-      <div className="owner-dashboard__order-logo">
-        <Fork />
+    <div className="order">
+      {props.children}
+      <div className="order__details">
+        <p className="order__text">payment: {payment}</p>
+        <p className="order__text">total: {total}</p>
+        <p className="order__text">status: {status}</p>
       </div>
-      <p className="owner-dashboard__order-title">{props.title}</p>
-      <p className="owner-dashboard__order-status">{props.status}</p>
+
+      {!isCooking && !isDone && <button onClick={()=>{handler(ORDERSTATUS.cook,id)}} className="button button--white">Cooking</button>}
+      {!isDone && <button onClick={()=>{handler(ORDERSTATUS.done,id)}} className="button button--white">completed</button>}
     </div>
   );
 };

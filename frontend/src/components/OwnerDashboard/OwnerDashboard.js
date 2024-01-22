@@ -1,33 +1,97 @@
+import { useEffect, useState } from 'react';
+import { getAuthId } from '../../util/auth';
+import findBestDish from './find-best-dish';
 import DashboardCard from './DashboardCard';
 import { ReactComponent as Dollar } from '../../assests/SVG/dollar-coin.svg';
 import { ReactComponent as Cart } from '../../assests/SVG/Cart.svg';
 import { ReactComponent as Fork } from '../../assests/SVG/Fork.svg';
 import Order from './Order';
+import OrderCard from './OrderCard';
+
 const OwnerDashboard = () => {
+  const [data, setData] = useState(null);
+  const id = getAuthId();
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const response = await fetch('/api/v1/orders/' + id);
+        const respData = await response.json();
+        setData(respData);
+      } catch (err) {
+        console.error('error fetching order', err);
+      }
+    }
+
+    getData();
+  }, [id]);
+
+  const statusChangeHandler = async (status,id) => {
+    const data = {orderStatus: status};
+    try{
+      const response = await fetch('/api/v1/owner/orders/'+id,{
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      });
+
+      if(!response.ok){
+        throw new Error('could not change status')
+      }
+
+      const resData = await response.json();
+      console.log(resData);
+
+    }catch(err){
+      window.alert(err.message);
+    }
+  }
+
+  const amount = data && data.totalAmount;
+  const totalOrders = data && data.orders.length;
+  const orders = (data && data.orders) || [];
+  const bestDish = findBestDish(orders);
+
   return (
     <section className="owner-dashboard">
       <h1 className="heading-primary owner-dashboard__title">dashboard</h1>
 
       <div className="card-holder">
-        <DashboardCard title="total revenue" content="rs. 1,00,000">
+        <DashboardCard title="total revenue" content={amount}>
           <Dollar />
         </DashboardCard>
-        <DashboardCard title="total orders" content="200">
+        <DashboardCard title="total orders" content={totalOrders}>
           <Cart />
         </DashboardCard>
-        <DashboardCard title="best sellers" content="chicken fried rice">
+        <DashboardCard title="best sellers" content={bestDish}>
           <Fork />
         </DashboardCard>
       </div>
 
       <div>
-        <h1 className="heading-primary owner-dashboard__title">order status</h1>
+        <h1 className="heading-primary owner-dashboard__title">orders</h1>
         <ul>
           <li>
-            <Order title="chicken fried rice" status="completed" />
-          </li>
-          <li>
-            <Order title="chicken fried rice" status="completed" />
+            {orders.map((order) => {
+              const paymentStatus = order.paymentInfo.status;
+              const orderStatus = order.orderStatus;
+              const totalPrice = order.totalPrice;
+              const id = order._id;
+              return (
+                <Order
+                  status={orderStatus}
+                  payment={paymentStatus}
+                  total={totalPrice}
+                  key={id}
+                  id={id}
+                  handler={statusChangeHandler}
+                >
+                  {order.orderItems.map((item) => {
+                    return <OrderCard key={item._id} title={item.name} quantity={item.quantity} price={item.price}/>;
+                  })}
+                </Order>
+              );
+            })}
           </li>
         </ul>
       </div>

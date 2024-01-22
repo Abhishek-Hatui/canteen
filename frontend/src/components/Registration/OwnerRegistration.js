@@ -1,8 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ReactComponent as LogoPic } from '../../assests/SVG/loginpic.svg';
 import useInput from '../../hooks/useInput/use-input';
 
 const OwnerRegister = () => {
+  const navigate = useNavigate();
+
   const {
     value: enteredName,
     hasError: nameHasError,
@@ -81,6 +83,7 @@ const OwnerRegister = () => {
     emailReset();
     passwordReset();
     clgReset();
+    navigate('/ologin');
   };
 
   return (
@@ -157,9 +160,9 @@ const OwnerRegister = () => {
           <button className="button button--primary u-margin-right u-margin-left u-margin-bottom">
             register
           </button>
-          <button className="button button--white u-margin-right u-margin-left">
+          <Link to='..' className="button button--white u-margin-right u-margin-left">
             back
-          </button>
+          </Link>
         </div>
       </form>
     </section>

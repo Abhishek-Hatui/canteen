@@ -1,7 +1,10 @@
 import { ReactComponent as LogoPic } from '../../assests/SVG/loginpic.svg';
 import useInput from '../../hooks/useInput/use-input';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLoaderData, Form } from 'react-router-dom';
+import Navigation from '../Navigation/Navigation';
 const Login = () => {
+  const navigate = useNavigate();
+  const id = useLoaderData();
   const {
     value: enteredEmail,
     hasError: emailHasError,
@@ -38,7 +41,8 @@ const Login = () => {
       const result = await response.json();
       return result;
     } catch (err) {
-      console.log(err.message);
+      window.alert(err.message);
+      return null;
     }
   };
 
@@ -54,63 +58,87 @@ const Login = () => {
     };
 
     const result = await loginReq(userInfo);
-    console.log(result.token);
-    emailReset();
-    passwordReset();
+
+    if (result) {
+      localStorage.setItem('id', result.student._id);
+      localStorage.setItem('token', result.token);
+      emailReset();
+      passwordReset();
+
+      navigate('/odashboard');
+    }
   };
 
-  return (
-    <section className="login">
-      <div className="login__title-group">
-        <LogoPic className="login__pic" />
-        <h1 className="heading-primary login__title">login to canteen</h1>
-        <p className="login__sub-title">
-          Don't have an existing account?&nbsp;
-          <span>
-            <Link to="/oregister">Create</Link>
-          </span>
-        </p>
-      </div>
-      <form onSubmit={onSubmitHandler} className="login__form">
-        <div className="login__form-group">
-          <input
-            name="email"
-            className={
-              emailHasError
-                ? 'input--error u-margin-bottom-small'
-                : 'input u-margin-bottom-small'
-            }
-            type="email"
-            placeholder="email"
-            required
-            value={enteredEmail}
-            onChange={emailChangeHandler}
-            onBlur={emailBlurHandler}
-          />
-          <input
-            name="password"
-            className={
-              passwordHasError
-                ? 'input--error u-margin-bottom'
-                : 'input u-margin-bottom'
-            }
-            type="password"
-            placeholder="password"
-            required
-            value={enteredPassword}
-            onChange={passwordChangeHandler}
-            onBlur={passwordBlurHandler}
-          />
-          <button className="button button--primary u-margin-right u-margin-left u-margin-bottom">
-            login
-          </button>
-          <button className="button button--white u-margin-right u-margin-left">
-            back
-          </button>
+  let form;
+
+  if (id) {
+    form = (
+      <section>
+      <Form method='POST' action='/logout'>
+        <button>logout</button>
+      </Form>
+      <Navigation />
+      </section>
+    );
+  } else {
+    form = (
+      <section className="login">
+        <div className="login__title-group">
+          <LogoPic className="login__pic" />
+          <h1 className="heading-primary login__title">login to canteen</h1>
+          <p className="login__sub-title">
+            Don't have an existing account?&nbsp;
+            <span>
+              <Link to="/oregister">Create</Link>
+            </span>
+          </p>
         </div>
-      </form>
-    </section>
-  );
+        <form onSubmit={onSubmitHandler} className="login__form">
+          <div className="login__form-group">
+            <input
+              name="email"
+              className={
+                emailHasError
+                  ? 'input--error u-margin-bottom-small'
+                  : 'input u-margin-bottom-small'
+              }
+              type="email"
+              placeholder="email"
+              required
+              value={enteredEmail}
+              onChange={emailChangeHandler}
+              onBlur={emailBlurHandler}
+            />
+            <input
+              name="password"
+              className={
+                passwordHasError
+                  ? 'input--error u-margin-bottom'
+                  : 'input u-margin-bottom'
+              }
+              type="password"
+              placeholder="password"
+              required
+              value={enteredPassword}
+              onChange={passwordChangeHandler}
+              onBlur={passwordBlurHandler}
+            />
+            <button className="button button--primary u-margin-right u-margin-left u-margin-bottom">
+              login
+            </button>
+            <Link
+              to=".."
+              className="button button--white u-margin-right u-margin-left"
+            >
+              back
+            </Link>
+          </div>
+        </form>
+      </section>
+    );
+  }
+
+  return <>{form}</>;
 };
 
 export default Login;
