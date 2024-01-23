@@ -145,7 +145,8 @@ const AddItem = () => {
           >
             description
           </label>
-          <input
+          <textarea
+            rows='5'
             className={descHasError ? 'input--error' : 'input'}
             type="text"
             placeholder="enter item description"

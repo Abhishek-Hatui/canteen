@@ -1,12 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import HomePage from './components/HomePage/Home';
 import OwnerDashboard from './components/OwnerDashboard/OwnerDashboard';
 import Login from './components/Login/Login';
 import Registration from './components/Registration/OwnerRegistration';
 import Navigation from './components/Navigation/Navigation';
 import { action as logoutAction } from './components/Login/Logout';
 import { cheackAuthLoader, idLoader } from './util/auth';
-import AddItem from './components/AddItemPage/AddItem';
+import AddItem from './components/Item/AddItem';
+import Items from './components/Item/Items';
 
 const router = createBrowserRouter([
   {
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: <Items />,
       },
       {
         path: 'odashboard',
@@ -25,8 +25,9 @@ const router = createBrowserRouter([
       },
       {
         path: 'additem',
-        element: <AddItem />
-      }
+        element: <AddItem />,
+        loader: cheackAuthLoader,
+      },
     ],
   },
   {
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
   },
   {
     path: 'logout',
-    action: logoutAction
+    action: logoutAction,
   },
 ]);
 

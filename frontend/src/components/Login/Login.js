@@ -61,6 +61,7 @@ const Login = () => {
 
     if (result) {
       localStorage.setItem('id', result.student._id);
+      localStorage.setItem('clg',result.student.ownerCollegeName);
       localStorage.setItem('token', result.token);
       emailReset();
       passwordReset();
@@ -75,7 +76,7 @@ const Login = () => {
     form = (
       <section>
       <Form method='POST' action='/logout'>
-        <button>logout</button>
+        <button className='button button--primary'>logout</button>
       </Form>
       <Navigation />
       </section>

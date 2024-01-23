@@ -6,6 +6,7 @@
   box-sizing: inherit; }
 
 :root {
+  --black-color-light: #374151;
   --black-color: #000;
   --white-color: #fff;
   --grey-color: #eee;
@@ -97,7 +98,6 @@ body {
   padding: 1rem 2rem;
   box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.15);
   scale: 0.9;
-  position: relative;
   transition: all 0.2s; }
   .input::placeholder {
     text-transform: capitalize; }
@@ -117,7 +117,6 @@ body {
     padding: 1rem 2rem;
     box-shadow: 0 1rem 4rem rgba(201, 22, 22, 0.15);
     scale: 0.9;
-    position: relative;
     transition: all 0.2s; }
     .input--error::placeholder {
       text-transform: capitalize; }
@@ -271,6 +270,61 @@ body {
       text-transform: capitalize;
       font-size: 2rem; }
 
+.items {
+  display: flex;
+  flex-direction: column; }
+  .items__functions {
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+  .items__search {
+    width: 95%; }
+  .items__title {
+    text-transform: capitalize;
+    font-size: 2rem;
+    font-weight: 100;
+    color: var(--black-color-light); }
+  .items__display {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem 3rem 0 3rem; }
+  .items__card {
+    display: flex;
+    padding: 1rem 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 32rem;
+    border-radius: 3px;
+    box-shadow: 0rem 1rem 4rem rgba(0, 0, 0, 0.15);
+    background-color: var(--white-color); }
+  .items__text {
+    font-size: 1.2rem; }
+  .items__details {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; }
+    .items__details--1 {
+      width: 22rem;
+      flex: 2 0; }
+    .items__details--2 {
+      width: 9rem;
+      flex: 1 0;
+      align-items: center;
+      position: relative; }
+  .items__image {
+    width: 60%;
+    height: 80%; }
+  .items__button {
+    position: absolute;
+    bottom: 2px;
+    width: 50%; }
+    .items__button-text {
+      font-size: 1rem;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      translate: -50% -50%; }
+
 .navigation {
   position: fixed;
   bottom: 0;
@@ -299,7 +353,6 @@ body {
     transition: all .2s;
     border-bottom: 2px solid transparent; }
     .navigation__button:active {
-      scale: 1.2;
       translate: 0 -.4rem; }
     .navigation__button--active {
       border-bottom: 2px solid var(--primary-color); }
