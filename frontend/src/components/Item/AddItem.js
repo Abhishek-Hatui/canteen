@@ -76,12 +76,16 @@ const AddItem = () => {
       category: enteredCategory,
       type: enteredType,
       availability: true,
-      image: 'https://source.unsplash.com/1600x900/?' + enteredName,
+      // image: 'https://source.unsplash.com/1600x900/?' + enteredName,
+      images: {
+        public_id: 'sample image',
+        url: 'https://source.unsplash.com/1600x900/?' + enteredName,
+      },
     };
 
     const response = sendData(newItem);
 
-    if(response){
+    if (response) {
       window.alert('item added successfully');
     }
 
@@ -146,7 +150,7 @@ const AddItem = () => {
             description
           </label>
           <textarea
-            rows='5'
+            rows="5"
             className={descHasError ? 'input--error' : 'input'}
             type="text"
             placeholder="enter item description"

@@ -43,7 +43,7 @@ exports.getAllItems = catchAsyncErrors(async (req, res, next) => {
   const resultPerPage = 20;
   const itemsCount = await Item.countDocuments();
 
-  const apiFeatures = new ApiFeatures(Item.find({availability:true, collegeCanteen: req.param.collegeCanteen }), req.query).search().filter();
+  const apiFeatures = new ApiFeatures(Item.find({availability:true, ownerCollegeName: req.param.ownerCollegeName }), req.query).search().filter();
 
   let items = await apiFeatures.query;
 
@@ -52,6 +52,7 @@ exports.getAllItems = catchAsyncErrors(async (req, res, next) => {
   apiFeatures.pagination(resultPerPage);
 
   items = await apiFeatures.query.clone();
+  console.log(items);
 
   res.status(200).json({
     success: true,

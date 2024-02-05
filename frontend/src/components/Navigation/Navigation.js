@@ -25,7 +25,7 @@ const Navigation = () => {
         </NavLink>
       </li>
       <li className={'navigation__item' }>
-        <NavLink to='/additem' className={({isActive}) => isActive ? 'navigation__button--active' : 'navigation__button'}>
+        <NavLink to='/additem?mode=add' className={({isActive}) => isActive ? 'navigation__button--active' : 'navigation__button'}>
           <Cart />
         </NavLink>
       </li>

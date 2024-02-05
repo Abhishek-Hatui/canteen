@@ -1,7 +1,8 @@
 import { ReactComponent as LogoPic } from '../../assests/SVG/loginpic.svg';
 import useInput from '../../hooks/useInput/use-input';
-import { Link, useNavigate, useLoaderData, Form } from 'react-router-dom';
-import Navigation from '../Navigation/Navigation';
+import { Link, useNavigate, useLoaderData } from 'react-router-dom';
+import Logout from './Logout';
+
 const Login = () => {
   const navigate = useNavigate();
   const id = useLoaderData();
@@ -63,6 +64,8 @@ const Login = () => {
       localStorage.setItem('id', result.student._id);
       localStorage.setItem('clg',result.student.ownerCollegeName);
       localStorage.setItem('token', result.token);
+      localStorage.setItem('name', result.student.name);
+      localStorage.setItem('email',result.student.email);
       emailReset();
       passwordReset();
 
@@ -73,14 +76,7 @@ const Login = () => {
   let form;
 
   if (id) {
-    form = (
-      <section>
-      <Form method='POST' action='/logout'>
-        <button className='button button--primary'>logout</button>
-      </Form>
-      <Navigation />
-      </section>
-    );
+    form = <Logout />
   } else {
     form = (
       <section className="login">

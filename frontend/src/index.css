@@ -313,7 +313,8 @@ body {
       position: relative; }
   .items__image {
     width: 60%;
-    height: 80%; }
+    height: 80%;
+    border-radius: 3px; }
   .items__button {
     position: absolute;
     bottom: 2px;
