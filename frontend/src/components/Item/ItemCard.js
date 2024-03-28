@@ -28,9 +28,7 @@ const ItemCard = (props) => {
         />
         <button
           className="button button--primary items__button"
-          onClick={() =>
-            navigate('/additem?mode=edit&item-id=idharidvariabledalna')
-          }
+          onClick={() => navigate(`/additem?mode=edit&item-id=${props.id}`)}
         >
           <span className="items__button-text">edit</span>
         </button>

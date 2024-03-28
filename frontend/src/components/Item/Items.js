@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import ItemCard from './ItemCard';
+// import { useEffect } from 'react';
 
 const Items = () => {
   const navigate = useNavigate();
-
+  
   return (
     <div className="items">
       <div className="items__functions">
@@ -28,6 +29,7 @@ const Items = () => {
           reviewcount="31"
           description="dsafafasdfasdfasd"
           price="10"
+          id= "testingID"
         />
       </div>
     </div>

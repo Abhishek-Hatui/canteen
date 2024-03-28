@@ -1,9 +1,14 @@
 import { ReactComponent as LeftArrow } from '../../assests/SVG/left-arrow.svg';
 import useInput from '../../hooks/useInput/use-input';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const AddItem = () => {
   const navigate = useNavigate();
+
+  const [searchParams] = useSearchParams();
+
+  const isAdd = searchParams.get('mode') === 'add';
+
   ///////////////////////////////////////////////////////////////////////////////////////
   const {
     value: enteredName,
@@ -102,7 +107,7 @@ const AddItem = () => {
         <div onClick={() => navigate('..')}>
           <LeftArrow />
         </div>
-        <h2 className="heading-secondary u-margin-left">add new item</h2>
+        <h2 className="heading-secondary u-margin-left">{isAdd ? 'add new item' : 'edit item'}</h2>
       </div>
 
       <form className="add-item__form" onSubmit={onSubmitHandler}>

@@ -5,7 +5,6 @@ import { ReactComponent as Cart } from '../../assests/SVG/Cart.svg';
 import { ReactComponent as User } from '../../assests/SVG/account.svg';
 
 const Navigation = () => {
-
   return(
     <>
     <main>
@@ -30,7 +29,7 @@ const Navigation = () => {
         </NavLink>
       </li>
       <li className={'navigation__item' }>
-        <NavLink to='/ologin' className={({isActive}) => isActive ? 'navigation__button--active' : 'navigation__button'}>
+        <NavLink to='/oprofile' className={({isActive}) => isActive ? 'navigation__button--active' : 'navigation__button'}>
           <User />
         </NavLink>
       </li>

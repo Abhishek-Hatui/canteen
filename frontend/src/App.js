@@ -3,8 +3,8 @@ import OwnerDashboard from './components/OwnerDashboard/OwnerDashboard';
 import Login from './components/Login/Login';
 import Registration from './components/Registration/OwnerRegistration';
 import Navigation from './components/Navigation/Navigation';
-import { action as logoutAction } from './components/Login/Logout';
-import { cheackAuthLoader, idLoader } from './util/auth';
+import Profile from './components/Login/Profile';
+import { cheackAuthLoader, idLoader, logout as logoutAction } from './util/auth';
 import AddItem from './components/Item/AddItem';
 import Items from './components/Item/Items';
 
@@ -28,6 +28,11 @@ const router = createBrowserRouter([
         element: <AddItem />,
         loader: cheackAuthLoader,
       },
+      {
+        path: 'oprofile',
+        element: <Profile />,
+        loader: cheackAuthLoader,
+      }
     ],
   },
   {

@@ -1,7 +1,6 @@
 import { ReactComponent as LogoPic } from '../../assests/SVG/loginpic.svg';
 import useInput from '../../hooks/useInput/use-input';
 import { Link, useNavigate, useLoaderData } from 'react-router-dom';
-import Logout from './Logout';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -76,7 +75,7 @@ const Login = () => {
   let form;
 
   if (id) {
-    form = <Logout />
+    navigate('/oprofile');
   } else {
     form = (
       <section className="login">

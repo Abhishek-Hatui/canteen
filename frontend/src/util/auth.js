@@ -17,3 +17,12 @@ export function cheackAuthLoader(){
 export function idLoader(){
     return getAuthId();
 }
+
+export function logout(){
+    localStorage.removeItem('id');
+    localStorage.removeItem('clg');
+    localStorage.removeItem('token');
+    localStorage.removeItem('name');
+    localStorage.removeItem('email');
+    return redirect('/ologin');
+}
