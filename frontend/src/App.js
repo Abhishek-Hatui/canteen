@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       {
         path: 'additem',
         element: <AddItem />,
-        loader: cheackAuthLoader,
+        
       },
       {
         path: 'oprofile',

@@ -22,14 +22,14 @@
   &__display {
     display: flex;
     flex-direction: column;
-    margin: 2rem 3rem 0 3rem;
+    margin: 2rem 3rem 6rem 3rem;
   }
 
   &__card {
     display: flex;
     padding: 1rem 2rem;
     margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     width: 32rem;
     border-radius: 3px;
     @include box-shadow-1;

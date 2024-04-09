@@ -1,10 +1,27 @@
 import { useNavigate } from 'react-router-dom';
 import ItemCard from './ItemCard';
-// import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const Items = () => {
   const navigate = useNavigate();
-  
+  const [items, setItems] = useState([]);
+  const clgName = localStorage.getItem('clg');
+
+  useEffect(() => {
+    async function getAllItems() {
+      try {
+        const response = await fetch('/api/v1/items');
+        const data = await response.json();
+        const items = data.items.filter((el) => el.collegeCanteen === clgName);
+
+        setItems(items);
+      } catch (err) {
+        window.alert(err);
+      }
+    }
+    getAllItems();
+  }, [clgName]);
+
   return (
     <div className="items">
       <div className="items__functions">
@@ -24,13 +41,22 @@ const Items = () => {
       </div>
       <div className="items__display">
         <h2 className="items__title">featured dishes</h2>
-        <ItemCard
-          name="dish name"
-          reviewcount="31"
-          description="dsafafasdfasdfasd"
-          price="10"
-          id= "testingID"
-        />
+        {items.length === 0 ? (
+          <p>You have no items</p>
+        ) : (
+          items.map((item) => (
+            <ItemCard
+              key={item._id}
+              name={item.name}
+              reviewcount={item.numOfReviews}
+              description={item.description}
+              price={item.price}
+              id={item._id}
+              image={item.images[0].url}
+              rating={item.rating}
+            />
+          ))
+        )}
       </div>
     </div>
   );

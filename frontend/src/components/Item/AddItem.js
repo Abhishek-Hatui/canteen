@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { ReactComponent as LeftArrow } from '../../assests/SVG/left-arrow.svg';
 import useInput from '../../hooks/useInput/use-input';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -6,10 +7,34 @@ const AddItem = () => {
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
-
   const isAdd = searchParams.get('mode') === 'add';
+  const itemId = searchParams.get('item-id');
+
+  const ownerId = localStorage.getItem('id');
+
+  //////////////////////////////////////////////////////////////////////////////////////
+
+  const [item,setItem] = useState();
+
+  useEffect(()=>{
+    async function getItemDetails(){
+      try{
+        const response = await fetch(`/api/v1/item/${itemId}`);
+        if(!response.ok){
+          throw new Error('Error fetch item details');
+        }
+        const data = await response.json();
+        setItem(data.item);
+      }catch(err){
+        window.alert(err)
+      }
+    }
+    !isAdd && getItemDetails()
+  },[itemId,isAdd]);
+
 
   ///////////////////////////////////////////////////////////////////////////////////////
+
   const {
     value: enteredName,
     hasError: nameHasError,
@@ -81,14 +106,13 @@ const AddItem = () => {
       category: enteredCategory,
       type: enteredType,
       availability: true,
-      // image: 'https://source.unsplash.com/1600x900/?' + enteredName,
       images: {
         public_id: 'sample image',
         url: 'https://source.unsplash.com/1600x900/?' + enteredName,
       },
     };
 
-    const response = sendData(newItem);
+    const response = isAdd && sendData(newItem);
 
     if (response) {
       window.alert('item added successfully');
@@ -99,17 +123,29 @@ const AddItem = () => {
     descReset();
   };
 
+  async function deleteHandler(itemId){
+    try{
+      const response = await fetch(`/api/v1/item/${itemId}`,{method: 'delete'});
+      if(!response.ok){
+        throw new Error('Error deleting item');
+      }
+      window.alert('item deleted');
+    }catch(err){
+      window.alert(err)
+    }
+  }
+
   /////////////////////////////////////////////////////////////////////////////////////////////
 
   return (
     <div className="add-item">
-      <div className="add-item__title">
-        <div onClick={() => navigate('..')}>
+      <div className="add-item__title" onClick={() => navigate('..')}>
+        <div >
           <LeftArrow />
         </div>
         <h2 className="heading-secondary u-margin-left">{isAdd ? 'add new item' : 'edit item'}</h2>
       </div>
-
+    {ownerId ?
       <form className="add-item__form" onSubmit={onSubmitHandler}>
         <div className="add-item__form-group add-item__form-group--1">
           <label
@@ -126,6 +162,7 @@ const AddItem = () => {
             onBlur={nameBlurHandler}
             onChange={nameChangeHandler}
             value={enteredName}
+            defaultValue={item && item.name}
           />
         </div>
 
@@ -252,10 +289,18 @@ const AddItem = () => {
           </div>
         </div>
 
-        <button className="button button--big button--primary u-margin-bottom-big">
+        <button className={isAdd ? "button button--big button--primary u-margin-bottom-big" : "button button--big button--white u-margin-bottom"}>
           confirm
         </button>
-      </form>
+        {!isAdd && <button type='button' className="button button--big button--primary u-margin-bottom-big" onClick={() => {deleteHandler(itemId)}}>
+          delete
+        </button>}
+      </form>: 
+      <>
+      <h1 className='u-margin-left'>Login to add items</h1>
+      <button type='button' className='button button--big button--primary' onClick={() => navigate('/ologin')}>login</button>
+      </>
+  }
     </div>
   );
 };
