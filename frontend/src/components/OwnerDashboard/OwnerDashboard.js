@@ -27,7 +27,7 @@ const OwnerDashboard = () => {
   }, [id]);
 
   const statusChangeHandler = async (status,id) => {
-    const data = {orderStatus: status};
+    const data = {status:status};
     try{
       const response = await fetch('/api/v1/owner/orders/'+id,{
         method: 'PUT',
@@ -41,6 +41,7 @@ const OwnerDashboard = () => {
 
       const resData = await response.json();
       console.log(resData);
+      window.alert('served');
 
     }catch(err){
       window.alert(err.message);
@@ -76,14 +77,14 @@ const OwnerDashboard = () => {
               const paymentStatus = order.paymentInfo.status;
               const orderStatus = order.orderStatus;
               const totalPrice = order.totalPrice;
-              const id = order._id;
+              const orderId = order._id;
               return (
                 <Order
                   status={orderStatus}
                   payment={paymentStatus}
                   total={totalPrice}
-                  key={id}
-                  id={id}
+                  key={orderId}
+                  id={orderId}
                   handler={statusChangeHandler}
                 >
                   {order.orderItems.map((item) => {

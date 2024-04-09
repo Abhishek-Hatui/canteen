@@ -1,12 +1,12 @@
 const ORDERSTATUS = {
   cook: 'COOKING',
-  done: 'COMPLETED',
+  done: 'Served',
 };
 
 const Order = (props) => {
   const {status, payment, total, id, handler} = props;
-  const isCooking = ORDERSTATUS.cook === props.status.toString().toUpperCase();
-  const isDone = ORDERSTATUS.done === props.status.toString().toUpperCase();
+  // const isCooking = ORDERSTATUS.cook === props.status.toString().toUpperCase();
+  const isDone = ORDERSTATUS.done === props.status.toString();
 
   return (
     <div className="order">
@@ -17,7 +17,7 @@ const Order = (props) => {
         <p className="order__text">status: {status}</p>
       </div>
 
-      {!isCooking && !isDone && <button onClick={()=>{handler(ORDERSTATUS.cook,id)}} className="button button--white">Cooking</button>}
+      {/* {!isCooking && !isDone && <button onClick={()=>{handler(ORDERSTATUS.cook,id)}} className="button button--white">Cooking</button>} */}
       {!isDone && <button onClick={()=>{handler(ORDERSTATUS.done,id)}} className="button button--white">completed</button>}
     </div>
   );
